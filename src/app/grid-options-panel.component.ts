@@ -78,10 +78,7 @@ export class GridOptionsPanel implements OnInit {
           colId: "country",
           rowGroup: event.target.checked
         }
-      ],
-      defaultState: {
-        rowGroup: false
-      }
+      ]
     });
   }
   updateFilterByArgentina(event) {
