@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
+import { AgRendererComponent } from "ag-grid-angular";
 
-import { AgRendererComponent } from "@ag-grid-community/angular";
 import { ICellRenderer, ICellRendererParams } from "ag-grid-community";
 
 @Component({
@@ -21,12 +21,13 @@ import { ICellRenderer, ICellRendererParams } from "ag-grid-community";
     </div>
   `
 })
-export class MyCellRenderer implements AgRendererComponent {
-  cellStyles;
-  link = null;
+export class MyCellRenderer  {
+
+  cellStyles: any;
+  link : string | URL | undefined;
   value = undefined;
 
-  agInit(params: ICellRendererParams) {
+  agInit(params: any) {
     this.value = params.value;
 
     const pdfExportOptions = params.column.colDef.pdfExportOptions;
@@ -41,13 +42,19 @@ export class MyCellRenderer implements AgRendererComponent {
           color
         } = pdfExportOptions.styles;
 
-        let styles = {};
+        let styles = {
+          fontSize: fontSize ? fontSize + "px" : null,
+          fontWeight: bold ? "bold" : null,
+          textAlign: alignment ? alignment : null,
+          background: background ? background : null,
+          color: color ? color : null,
+        };
 
-        styles.fontSize = fontSize ? fontSize + "px" : null;
-        styles.fontWeight = bold ? "bold" : null;
-        styles.textAlign = alignment ? alignment : null;
-        styles.background = background ? background : null;
-        styles.color = color ? color : null;
+        // styles.fontSize = fontSize ? fontSize + "px" : null;
+        // styles.fontWeight = bold ? "bold" : null;
+        // styles.textAlign = alignment ? alignment : null;
+        // styles.background = background ? background : null;
+        // styles.color = color ? color : null;
 
         this.cellStyles = styles;
       }
@@ -58,7 +65,7 @@ export class MyCellRenderer implements AgRendererComponent {
     }
   }
 
-  openLink() {
+  openLink(e:any) {
     window.open(this.link, "popup", "width=600,height=600");
     return false;
   }

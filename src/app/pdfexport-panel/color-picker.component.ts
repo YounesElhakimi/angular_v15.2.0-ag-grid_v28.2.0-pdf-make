@@ -8,8 +8,8 @@ import {
 } from "@angular/core";
 // Needed to be compatible with IE11 that does not support ES6+
 // Should be : import Pickr from '@simonwep/pickr';
-import Pickr from "@simonwep/pickr/dist/pickr.es5.min.js";
-// import Pickr from '@simonwep/pickr';
+//import Pickr from "@simonwep/pickr/dist/pickr.es5.min.js";
+ import Pickr from '@simonwep/pickr';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
 @Component({
@@ -28,24 +28,24 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 })
 export class ColorPickerComponent
   implements AfterViewInit, ControlValueAccessor {
-  public color: string;
+  public color: string | undefined;
 
-  private pickr: Pickr;
+  private pickr: Pickr | undefined  ;
 
   @ViewChild("colorPicker", { static: false })
-  public colorPicker: ElementRef;
+  public colorPicker: ElementRef | undefined;
 
   /** Callback when the value has changed */
-  private onChangeCallback: (_: any) => void;
+  private onChangeCallback!: (_: any) => void;
 
   /** Callback when the input has touched */
-  private onTouchedCallback: () => void;
+  private onTouchedCallback!: () => void;
 
   constructor() {}
 
   ngAfterViewInit() {
     this.pickr = Pickr.create({
-      el: this.colorPicker.nativeElement,
+      el: this.colorPicker?.nativeElement,
       theme: "nano",
       container: "body",
       comparison: false,
@@ -79,11 +79,11 @@ export class ColorPickerComponent
       }
     });
 
-    this.pickr.on("init", instance => {
-      this.pickr.setColor(this.color);
+    this.pickr.on("init", (instance: any) => {
+      this.pickr?.setColor(this.color!);
     });
 
-    this.pickr.on("save", (color, instance) => {
+    this.pickr.on("save", (color: any, instance: any) => {
       this.color = color.toHEXA().toString();
       // this.pickr.applyColor();
       this.onChangeCallback(this.color);
@@ -96,7 +96,7 @@ export class ColorPickerComponent
     if (color) {
       this.color = color;
       console.log(color);
-      this.pickr.setColor(color);
+      this.pickr?.setColor(color);
     }
   }
 

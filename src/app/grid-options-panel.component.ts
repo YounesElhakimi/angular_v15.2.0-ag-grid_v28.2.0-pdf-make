@@ -4,66 +4,17 @@ import { COLDEFS_WITH_GROUPING, COLDEFS_WITHOUT_GROUPING } from "./columnDefs";
 
 @Component({
   selector: "grid-options-panel",
-  template: `
-    <form (ngSubmit)="onSubmit()">
-      <h4 class="text-secondary">Grid Options</h4>
-      <span class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="grid-setting-column-groups"
-          [(ngModel)]="columnGrouping"
-          (change)="updateColumnGrouping($event)"
-        />
-        <label class="form-check-label" for="grid-setting-column-groups">
-          Column Groups
-        </label>
-      </span>
-
-      <span class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="grid-setting-group-country"
-          [(ngModel)]="groupByCountry"
-          (change)="updateGroupByCountry($event)"
-        />
-        <label class="form-check-label" for="grid-setting-group-country">
-          Group by "country"
-        </label>
-      </span>
-      <span class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="grid-setting-filter-argentina"
-          [(ngModel)]="filterByArgentina"
-          (change)="updateFilterByArgentina($event)"
-        />
-        <label class="form-check-label" for="grid-setting-filter-argentina">
-          Filter by "Argentina"
-        </label>
-      </span>
-      <span class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="grid-setting-sort-athlete-asc"
-          [(ngModel)]="sortAthleteCol"
-          (change)="updateSortAthleteAsc($event)"
-        />
-        <label class="form-check-label" for="grid-setting-sort-athlete-asc">
-          Sort Athlete (ascending)
-        </label>
-      </span>
-    </form>
-  `
+  templateUrl: "grid-options-panel.component.html"
 })
-export class GridOptionsPanel implements OnInit {
-  @Input() agGridApi;
-  @Input() agColumnApi;
+export class GridOptionsPanel  {
+  @Input() agGridApi: any;
+  @Input() agColumnApi: any;
+  columnGrouping = false;
+  sortAthleteCol = false;
+  filterByArgentina = false;
+  groupByCountry = false;
 
-  updateColumnGrouping(event) {
+  updateColumnGrouping(event: any) {
     const withColumnGroups = event.target.checked;
 
     this.agGridApi.setColumnDefs(
@@ -71,7 +22,7 @@ export class GridOptionsPanel implements OnInit {
     );
   }
 
-  updateGroupByCountry(event) {
+  updateGroupByCountry(event: any) {
     this.agColumnApi.applyColumnState({
       state: [
         {
@@ -81,13 +32,13 @@ export class GridOptionsPanel implements OnInit {
       ]
     });
   }
-  updateFilterByArgentina(event) {
+  updateFilterByArgentina(event: any) {
     const countryFilterComponent = this.agGridApi.getFilterInstance("country");
     const filterModel = event.target.checked ? { values: ["Argentina"] } : null;
     countryFilterComponent.setModel(filterModel);
     this.agGridApi.onFilterChanged();
   }
-  updateSortAthleteAsc(event) {
+  updateSortAthleteAsc(event: any) {
     let athleteSort = event.target.checked ? "asc" : null;
 
     this.agColumnApi.applyColumnState({

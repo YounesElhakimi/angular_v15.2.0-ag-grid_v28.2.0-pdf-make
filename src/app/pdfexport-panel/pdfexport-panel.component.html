@@ -1,0 +1,121 @@
+
+<form (ngSubmit)="submitFormHandler($event)">
+  <h4 class="text-secondary">PDF Export Options</h4>
+  <div class="mb-2">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="orientation"
+      id="landscape"
+      value="landscape"
+      [checked]="PDF_PAGE_ORITENTATION === 'landscape'"
+      (change)="PDF_PAGE_ORITENTATION = $any($event.target).value"
+    />
+    <label class="form-check-label" for="landscape">
+      Landscape
+    </label>
+    <input
+      class="form-check-input"
+      type="radio"
+      name="orientation"
+      id="portrait"
+      value="portrait"
+      [checked]="PDF_PAGE_ORITENTATION === 'portrait'"
+      (change)="PDF_PAGE_ORITENTATION = $any($event.target).value"
+    />
+    <label class="form-check-label" for="portrait">
+      Portrait
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="headerImage"
+      [checked]="PDF_WITH_HEADER_IMAGE"
+      (change)="PDF_WITH_HEADER_IMAGE = $any($event.target).checked"
+    />
+    <label class="form-check-label" for="headerImage">
+      Header image (ag-Grid logo)
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="footerPageCount"
+      [checked]="PDF_WITH_FOOTER_PAGE_COUNT"
+      (change)="PDF_WITH_FOOTER_PAGE_COUNT = $any($event.target).checked"
+    />
+    <label class="form-check-label" for="footerPageCount">
+      Footer (page count)
+    </label>
+  </div>
+  <div class="my-2">
+    <input
+      type="number"
+      id="headerRowHeight"
+      style="width: 50px; margin-right: 5px"
+      [value]="PDF_HEADER_HEIGHT"
+      (change)="PDF_HEADER_HEIGHT = parseInt($any($event.target).value)"
+    />
+    <label for="headerRowHeight">Header height</label>
+  </div>
+  <div class="my-2">
+    <input
+      type="number"
+      id="cellRowHeight"
+      style="width: 50px; margin-right: 5px"
+      [value]="PDF_ROW_HEIGHT"
+      (change)="PDF_ROW_HEIGHT = parseInt($any($event.target).value)"
+    />
+    <label for="cellRowHeight">Cell height</label>
+  </div>
+  <div class="color-picker-container">
+    <color-picker [(ngModel)]="PDF_ODD_BKG_COLOR" (ngModelChange)="onOddColorChange($event)" name="odd-bkg-color"></color-picker>
+    <div>Odd row background color</div>
+  </div>
+  <div class="color-picker-container">
+    <color-picker [(ngModel)]="PDF_EVEN_BKG_COLOR" (ngModelChange)="onEvenColorChange($event)" name="even-bkg-color"></color-picker>
+    <div>Even row background color</div>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="exportWithFormatting"
+      [checked]="PDF_WITH_CELL_FORMATTING"
+      (change)="PDF_WITH_CELL_FORMATTING = $any($event.target).checked"
+    />
+    <label class="form-check-label" for="exportWithFormatting">
+      Cell styles
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="exportColumnsAsLink"
+      [checked]="PDF_WITH_COLUMNS_AS_LINKS"
+      (change)="PDF_WITH_COLUMNS_AS_LINKS = $any($event.target).checked"
+    />
+    <label class="form-check-label" for="exportColumnsAsLink">
+      Hyperlinks
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="selectedRowsOnly"
+      [checked]="PDF_SELECTED_ROWS_ONLY"
+      (change)="PDF_SELECTED_ROWS_ONLY = $any($event.target).checked"
+    />
+    <label class="form-check-label" for="selectedRowsOnly">
+      Selected rows only
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">
+    Export to PDF
+  </button>
+</form>

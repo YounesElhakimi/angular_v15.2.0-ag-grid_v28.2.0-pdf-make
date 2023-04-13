@@ -1,0 +1,23 @@
+<div>
+  <div class="form-wrap">
+    <grid-options-panel
+      [agGridApi]="gridApi"
+      [agColumnApi]="columnApi"
+    ></grid-options-panel>
+    <zg-app-pdfexport-panel
+      [agGridApi]="gridApi"
+      [agColumnApi]="columnApi"
+    ></zg-app-pdfexport-panel>
+  </div>
+  <div class="grid-container">
+    <ag-grid-angular
+      style="height: 100%;"
+      class="ag-theme-alpine"
+      [gridOptions]="gridOptions"
+      (columnEverythingChanged)="onColumnEverythingChanged($event)"
+      (firstDataRendered)="onFirstDataRendered($event)"
+      (gridReady)="onGridReady($event)"
+    >
+    </ag-grid-angular>
+  </div>
+</div>

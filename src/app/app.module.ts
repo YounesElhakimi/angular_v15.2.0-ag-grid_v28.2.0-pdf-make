@@ -1,25 +1,31 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from "./app.component";
-import { AgGridModule } from "ag-grid-angular";
-import { HttpClientModule } from "@angular/common/http";
-
-import { MyCellRenderer } from "./my-cell-renderer.component";
+import { AppComponent } from './app.component';
 import { GridOptionsPanel } from './grid-options-panel.component';
-import { PDFExportPanel } from './pdfExport/pdf-export-panel.component';
-import { ColorPickerComponent } from './pdfExport/color-picker.component';
+import { MyCellRenderer } from './my-cell-renderer.component';
+import { PDFExportPanelComponent } from './pdfexport-panel/pdfexport-panel.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgGridModule } from 'ag-grid-angular';
+import { HttpClientModule } from '@angular/common/http';
+import { ColorPickerComponent } from './pdfexport-panel/color-picker.component';
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    PDFExportPanelComponent,
+    GridOptionsPanel,
+    MyCellRenderer,
+    ColorPickerComponent
+  ],
   imports: [
     BrowserModule,
-    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    AgGridModule.withComponents([MyCellRenderer])
+    AgGridModule,
+    FormsModule,
+    HttpClientModule
   ],
-  declarations: [AppComponent, MyCellRenderer, GridOptionsPanel, PDFExportPanel, ColorPickerComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

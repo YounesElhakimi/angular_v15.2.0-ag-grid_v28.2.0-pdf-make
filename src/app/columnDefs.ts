@@ -13,7 +13,7 @@ const COL_ATHLETE = {
   field: "athlete",
   width: 100,
   pdfExportOptions: {
-    createURL: value => {
+    createURL: (value :any) => {
       if (!value) {
         return "";
       }
@@ -44,7 +44,7 @@ const COL_AGE = {
 const COL_DATE = {
   headerName: "Date",
   colId: "date",
-  valueGetter: params => {
+  valueGetter: (params: any) => {
     if (params.node.group) {
       return null;
     }

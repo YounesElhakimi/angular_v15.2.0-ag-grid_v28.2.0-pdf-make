@@ -1,0 +1,57 @@
+
+    <form >
+      <h4 class="text-secondary">Grid Options</h4>
+      <span class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="grid-setting-column-groups"
+          [(ngModel)]="columnGrouping"
+          name="columnGrouping"
+          (change)="updateColumnGrouping($event)"
+        />
+        <label class="form-check-label" for="grid-setting-column-groups">
+          Column Groups
+        </label>
+      </span>
+
+      <span class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="grid-setting-group-country"
+          [(ngModel)]="groupByCountry"
+          name="groupByCountry"
+          (change)="updateGroupByCountry($event)"
+        />
+        <label class="form-check-label" for="grid-setting-group-country">
+          Group by "country"
+        </label>
+      </span>
+      <span class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="grid-setting-filter-argentina"
+          [(ngModel)]="filterByArgentina"
+          name="filterByArgentina"
+          (change)="updateFilterByArgentina($event)"
+        />
+        <label class="form-check-label" for="grid-setting-filter-argentina">
+          Filter by "Argentina"
+        </label>
+      </span>
+      <span class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="grid-setting-sort-athlete-asc"
+          [(ngModel)]="sortAthleteCol"
+          name="sortAthleteCol"
+          (change)="updateSortAthleteAsc($event)"
+        />
+        <label class="form-check-label" for="grid-setting-sort-athlete-asc">
+          Sort Athlete (ascending)
+        </label>
+      </span>
+    </form>

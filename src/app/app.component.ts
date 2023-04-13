@@ -3,44 +3,23 @@ import { HttpClient } from "@angular/common/http";
 import { COLDEFS_WITHOUT_GROUPING } from "./columnDefs";
 import { MyCellRenderer } from "./my-cell-renderer.component";
 import "ag-grid-enterprise";
-import "../styles.scss";
+import { ColDef, GridOptions } from "ag-grid-enterprise";
 
 @Component({
-  selector: "my-app",
-  template: `
-    <div>
-      <div class="form-wrap">
-        <grid-options-panel
-          [agGridApi]="gridApi"
-          [agColumnApi]="columnApi"
-        ></grid-options-panel>
-        <pdf-export-panel
-          [agGridApi]="gridApi"
-          [agColumnApi]="columnApi"
-        ></pdf-export-panel>
-      </div>
-      <div class="grid-container">
-        <ag-grid-angular
-          style="height: 100%;"
-          class="ag-theme-alpine"
-          [gridOptions]="gridOptions"
-          (columnEverythingChanged)="onColumnEverythingChanged($event)"
-          (firstDataRendered)="onFirstDataRendered($event)"
-          (gridReady)="onGridReady($event)"
-        >
-        </ag-grid-angular>
-      </div>
-    </div>
-  `
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+
 })
 export class AppComponent {
-  gridApi;
-  columnApi;
+  gridApi: any;
+  columnApi: any;
 
-  gridOptions;
-  rowData;
+  gridOptions: GridOptions<any>;
+  rowData: any;
 
   constructor(private http: HttpClient) {
+
     this.gridOptions = {
       rowData: this.rowData,
       columnDefs: COLDEFS_WITHOUT_GROUPING,
@@ -61,28 +40,31 @@ export class AppComponent {
     };
   }
 
-  onGridReady(params) {
+
+  onGridReady(params: any) {
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
 
     let rowData = this.http
-      .get("https://www.ag-grid.com/example-assets/olympic-winners.json")
+      .get<any[]>("https://www.ag-grid.com/example-assets/olympic-winners.json")
       .subscribe(data => {
         data.forEach(r => {
           r.date = new Date();
         });
+
         params.api.setRowData(data.slice(1500, 2000));
       });
   }
 
-  onFirstDataRendered(params) {
+  onFirstDataRendered(params: any) {
     params.columnApi.autoSizeAllColumns();
   }
 
-  onColumnEverythingChanged(params) {
+  onColumnEverythingChanged(params: any) {
     let selectionCol = params.columnApi.getColumn("selection-col");
     if (selectionCol) {
       params.columnApi.moveColumn(selectionCol, 0);
     }
   }
+
 }
